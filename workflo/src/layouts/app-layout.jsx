@@ -11,7 +11,7 @@ function AppLayout() {
         <Outlet />
       </main>
       <footer className="relative z-10 p-2 text-center text-sm text-gray-500">
-        &copy; {new Date().getFullYear()} WorkFlo. All rights reserved.
+        &copy; {new Date().getFullYear()} ApkaJob. All rights reserved.
       </footer>
     </div>
   );

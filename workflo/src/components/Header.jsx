@@ -27,7 +27,7 @@ function Header() {
     <>
       <nav className="flex items-center justify-between">
         <Link to="/">
-          <img src={Logo} alt="WorkFlo Logo" className="w-36 h-40" />
+          <img src={Logo} alt="ApkaJob Logo" className="w-36 h-40" />
         </Link>
         <h3 className="text-bold font-bold text-zinc-700 tracking-normal mr-20">
           {user?.unsafeMetadata?.role || "GUEST"}

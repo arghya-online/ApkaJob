@@ -1,27 +1,27 @@
 const faqs = [
   {
     id: 1,
-    question: "What is WorkFlo?",
+    question: "What is ApkaJob?",
     answer:
-      "WorkFlo is a job discovery and hiring platform that connects job hunters with companies through a simple, streamlined hiring workflow.",
+      "ApkaJob is a job discovery and hiring platform that connects job hunters with companies through a simple, streamlined hiring ApkaJobw.",
   },
   {
     id: 2,
-    question: "Is WorkFlo free for job hunters?",
+    question: "Is ApkaJob free for job hunters?",
     answer:
       "Yes. Job hunters can create a profile, upload resumes, browse job listings, and apply to roles without any cost.",
   },
   {
     id: 3,
-    question: "How do I apply for jobs on WorkFlo?",
+    question: "How do I apply for jobs on ApkaJob?",
     answer:
-      "You can apply directly to jobs using your WorkFlo profile. Once your resume is uploaded, you can apply to multiple roles without re-entering your details.",
+      "You can apply directly to jobs using your ApkaJob profile. Once your resume is uploaded, you can apply to multiple roles without re-entering your details.",
   },
   {
     id: 4,
     question: "Can I track my job applications?",
     answer:
-      "Yes. WorkFlo allows you to track the status of your applications from your dashboard in one place.",
+      "Yes. ApkaJob allows you to track the status of your applications from your dashboard in one place.",
   },
   {
     id: 5,
@@ -37,15 +37,15 @@ const faqs = [
   },
   {
     id: 7,
-    question: "How does WorkFlo match jobs to my profile?",
+    question: "How does ApkaJob match jobs to my profile?",
     answer:
-      "WorkFlo uses your skills, experience, and preferences to surface relevant job opportunities that fit your profile.",
+      "ApkaJob uses your skills, experience, and preferences to surface relevant job opportunities that fit your profile.",
   },
   {
     id: 8,
     question: "Is my personal data secure?",
     answer:
-      "Yes. WorkFlo uses secure authentication, encrypted storage, and strict access controls to protect your data.",
+      "Yes. ApkaJob uses secure authentication, encrypted storage, and strict access controls to protect your data.",
   },
   {
     id: 9,
@@ -55,9 +55,9 @@ const faqs = [
   },
   {
     id: 10,
-    question: "Who can use WorkFlo?",
+    question: "Who can use ApkaJob?",
     answer:
-      "WorkFlo is built for job hunters looking for opportunities and employers searching for qualified talent across industries.",
+      "ApkaJob is built for job hunters looking for opportunities and employers searching for qualified talent across industries.",
   },
 ];
 
