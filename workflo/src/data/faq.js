@@ -1,63 +1,39 @@
 const faqs = [
   {
     id: 1,
-    question: "What is ApkaJob?",
+    question: "Is this actually useful, or just another job website?",
     answer:
-      "ApkaJob is a job discovery and hiring platform that connects job hunters with companies through a simple, streamlined hiring ApkaJobw.",
+      "ApkaJob is meant to reduce the usual job-hunting mess. You create one profile, apply faster, and track everything in one place instead of juggling multiple sites and emails.",
   },
   {
     id: 2,
-    question: "Is ApkaJob free for job hunters?",
+    question: "Do I have to pay anything to apply for jobs?",
     answer:
-      "Yes. Job hunters can create a profile, upload resumes, browse job listings, and apply to roles without any cost.",
+      "No. Job seekers can use ApkaJob for free — create a profile, upload a resume, and apply to jobs without any charges.",
   },
   {
     id: 3,
-    question: "How do I apply for jobs on ApkaJob?",
+    question: "What happens after I apply to a job?",
     answer:
-      "You can apply directly to jobs using your ApkaJob profile. Once your resume is uploaded, you can apply to multiple roles without re-entering your details.",
+      "Your application goes directly to the recruiter, and you can see its status from your dashboard instead of waiting blindly.",
   },
   {
     id: 4,
-    question: "Can I track my job applications?",
+    question: "Will recruiters really see my profile?",
     answer:
-      "Yes. ApkaJob allows you to track the status of your applications from your dashboard in one place.",
+      "Yes. Recruiters use ApkaJob to find and review candidates, and they can reach out directly if your profile matches what they are looking for.",
   },
   {
     id: 5,
-    question: "How do employers post jobs?",
+    question: "Is my personal data safe here?",
     answer:
-      "Employers can sign up, complete onboarding, and post job listings directly from their dashboard. Job posts become visible immediately after publishing.",
+      "Your data is protected and only visible to relevant recruiters. ApkaJob does not sell or misuse your information.",
   },
   {
     id: 6,
-    question: "Can recruiters contact me directly?",
+    question: "Who is ApkaJob actually meant for?",
     answer:
-      "Yes. Recruiters can reach out to you directly if your profile matches their job requirements.",
-  },
-  {
-    id: 7,
-    question: "How does ApkaJob match jobs to my profile?",
-    answer:
-      "ApkaJob uses your skills, experience, and preferences to surface relevant job opportunities that fit your profile.",
-  },
-  {
-    id: 8,
-    question: "Is my personal data secure?",
-    answer:
-      "Yes. ApkaJob uses secure authentication, encrypted storage, and strict access controls to protect your data.",
-  },
-  {
-    id: 9,
-    question: "Can I edit my profile after applying?",
-    answer:
-      "Yes. You can update your profile at any time. Changes will apply to future applications.",
-  },
-  {
-    id: 10,
-    question: "Who can use ApkaJob?",
-    answer:
-      "ApkaJob is built for job hunters looking for opportunities and employers searching for qualified talent across industries.",
+      "It’s built for students, freshers, and working professionals who want a simpler and clearer job-search experience, without unnecessary noise.",
   },
 ];
 

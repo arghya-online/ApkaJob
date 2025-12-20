@@ -10,6 +10,7 @@ function Header() {
   const [showSignIn, setShowSignIn] = useState(false);
   const [search, setSearch] = useSearchParams("");
   const { user } = useUser();
+
   useEffect(() => {
     if (search.get("sign-in")) {
       setShowSignIn(true);
@@ -25,22 +26,58 @@ function Header() {
 
   return (
     <>
-      <nav className="flex items-center justify-between">
-        <Link to="/">
-          <img src={Logo} alt="ApkaJob Logo" className="w-36 h-40" />
+      {/* HEADER */}
+      <nav
+        className="
+          sticky top-0 z-50
+          bg-white
+          flex items-center justify-between
+          px-4 sm:px-8
+          h-16
+          border-b
+        "
+      >
+        {/* LOGO */}
+        <Link to="/" className="flex items-center">
+          <img
+            src={Logo}
+            alt="ApkaJob Logo"
+            className="
+              w-28
+              h-auto
+              object-contain
+            "
+            /* ❗ FIX:
+               Earlier h-40 was forcing the navbar height to ~160px
+               This was the main reason for the huge bottom gap
+            */
+          />
         </Link>
-        <h3 className="text-bold font-bold text-zinc-700 tracking-normal mr-20">
-          {user?.unsafeMetadata?.role || "GUEST"}
-        </h3>
 
+        {/* ROLE */}
+        <span
+          className="
+            hidden sm:inline-block
+            text-xs
+            font-semibold
+            px-3 py-1
+            rounded-full
+            bg-zinc-100
+            text-zinc-700
+          "
+        >
+          {user?.unsafeMetadata?.role || "GUEST"}
+        </span>
+
+        {/* AUTH ACTIONS */}
         <div>
           <SignedOut>
             <Button
               variant="outline"
               className="
                 bg-slate-900 text-white
-                hover:bg-slate-800 transition-colors
-                focus-visible:outline-offset-2 focus-visible:outline-slate-400
+                hover:bg-slate-800
+                transition
               "
               onClick={() => setShowSignIn(true)}
             >
@@ -50,50 +87,40 @@ function Header() {
           </SignedOut>
 
           <SignedIn>
-            <div className="flex items-center gap-4">
-              <UserButton
-                appearance={{
-                  elements: {
-                    avatarBox: "w-9 h-9",
-                  },
-                }}
-              >
-                <UserButton.MenuItems>
-                  <UserButton.Link
-                    label="My Jobs"
-                    labelIcon={<BriefcaseBusiness size={15} />}
-                    href="/my-jobs"
-                  />
-                  <UserButton.Link
-                    label="Saved Jobs"
-                    labelIcon={<PenBox size={15} />}
-                    href="/saved-jobs"
-                  />
-                  <UserButton.Action label="manageAccount" />
-                </UserButton.MenuItems>
-              </UserButton>
-
-              {user && user.unsafeMetadata?.role === "recruiter" && (
-                <Link to="/post-job">
-                  <Button
-                    className="
-                    bg-slate-900 text-white
-                    hover:bg-slate-800 transition-colors
-                    focus-visible:outline-offset-2 focus-visible:outline-slate-400
-                  "
-                  >
-                    Post a job
-                  </Button>
-                </Link>
-              )}
-            </div>
+            <UserButton
+              appearance={{
+                elements: {
+                  avatarBox: "w-9 h-9",
+                },
+              }}
+            >
+              <UserButton.MenuItems>
+                <UserButton.Link
+                  label="My Jobs"
+                  labelIcon={<BriefcaseBusiness size={15} />}
+                  href="/my-jobs"
+                />
+                <UserButton.Link
+                  label="Saved Jobs"
+                  labelIcon={<PenBox size={15} />}
+                  href="/saved-jobs"
+                />
+                <UserButton.Action label="manageAccount" />
+              </UserButton.MenuItems>
+            </UserButton>
           </SignedIn>
         </div>
       </nav>
 
+      {/* SIGN IN MODAL */}
       {showSignIn && (
         <div
-          className="fixed inset-0 flex items-center justify-center bg-black/50 z-1000"
+          className="
+            fixed inset-0
+            flex items-center justify-center
+            bg-black/50
+            z-10000
+          "
           onClick={handleOverlayClick}
         >
           <SignIn

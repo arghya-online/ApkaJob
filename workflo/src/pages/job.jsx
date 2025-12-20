@@ -85,7 +85,7 @@ const JobPage = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          {job?.isOpen || job?.isopen ? (
+          {job?.isopen || job?.isopen ? (
             <>
               <DoorOpen className="h-4 w-4 text-emerald-600" />
               <span className="text-emerald-600 font-medium">Open</span>
@@ -105,14 +105,14 @@ const JobPage = () => {
           <Select onValueChange={handleStatusChange}>
             <SelectTrigger
               className={`h-11 font-medium ${
-                job?.isOpen || job?.isopen
+                job?.isopen || job?.isopen
                   ? "bg-emerald-950 text-emerald-200 border-emerald-900"
                   : "bg-red-950 text-red-200 border-red-900"
               }`}
             >
               <SelectValue
                 placeholder={`Hiring Status ${
-                  job?.isOpen || job?.isopen ? "( Open )" : "( Closed )"
+                  job?.isopen || job?.isopen ? "( Open )" : "( Closed )"
                 }`}
               />
             </SelectTrigger>

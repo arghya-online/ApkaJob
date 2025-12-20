@@ -58,7 +58,7 @@ const PostJob = () => {
     fnCreateJob({
       ...data,
       recruiter_id: user.id,
-      isOpen: true,
+      isopen: true,
     });
   };
 
@@ -76,7 +76,6 @@ const PostJob = () => {
     if (isLoaded) {
       fnCompanies();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoaded]);
 
   if (!isLoaded || loadingCompanies) {
@@ -88,96 +87,155 @@ const PostJob = () => {
   }
 
   return (
-    <div>
-      <h1 className="gradient-title font-extrabold text-5xl sm:text-7xl text-center pb-8">
+    <div className="w-full max-w-5xl mx-auto pb-20">
+      <h1 className="gradient-title font-extrabold text-4xl sm:text-6xl text-center my-4">
         Post a Job
       </h1>
+
       <form
         onSubmit={handleSubmit(onSubmit)}
-        className="flex flex-col gap-4 p-4 pb-0"
+        className="
+        bg-white
+        shadow-xl
+        p-4
+        sm:p-6
+        flex
+        flex-col
+        gap-5
+      "
       >
-        <Input placeholder="Job Title" {...register("title")} />
-        {errors.title && <p className="text-red-500">{errors.title.message}</p>}
-
-        <Textarea placeholder="Job Description" {...register("description")} />
-        {errors.description && (
-          <p className="text-red-500">{errors.description.message}</p>
-        )}
-
-        <div className="flex gap-4 items-center">
-          <Controller
-            name="location"
-            control={control}
-            render={({ field }) => (
-              <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Job Location" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    {State.getStatesOfCountry("IN").map(({ name }) => (
-                      <SelectItem key={name} value={name}>
-                        {name}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            )}
+        <div>
+          <Input
+            placeholder="Job Title"
+            {...register("title")}
+            className="hover:border-zinc-500 focus:border-black transition"
           />
-          <Controller
-            name="company_id"
-            control={control}
-            render={({ field }) => (
-              <Select value={field.value} onValueChange={field.onChange}>
-                <SelectTrigger>
-                  <SelectValue placeholder="Company">
-                    {field.value
-                      ? companies?.find((com) => com.id === Number(field.value))
-                          ?.name
-                      : "Company"}
-                  </SelectValue>
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    {companies?.map(({ name, id }) => (
-                      <SelectItem key={name} value={id}>
-                        {name}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-            )}
-          />
-          <AddCompanyDrawer fetchCompanies={fnCompanies} />
-        </div>
-        {errors.location && (
-          <p className="text-red-500">{errors.location.message}</p>
-        )}
-        {errors.company_id && (
-          <p className="text-red-500">{errors.company_id.message}</p>
-        )}
-
-        <Controller
-          name="requirements"
-          control={control}
-          render={({ field }) => (
-            <MDEditor value={field.value} onChange={field.onChange} />
+          {errors.title && (
+            <p className="text-sm text-red-500 mt-1">{errors.title.message}</p>
           )}
-        />
+        </div>
+        <div>
+          <Textarea
+            placeholder="Job Description"
+            rows={4}
+            {...register("description")}
+            className="hover:border-zinc-500 focus:border-black transition"
+          />
+          {errors.description && (
+            <p className="text-sm text-red-500 mt-1">
+              {errors.description.message}
+            </p>
+          )}
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
+          {/* Location */}
+          <div className="sm:col-span-1">
+            <Controller
+              name="location"
+              control={control}
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger className="hover:border-zinc-500 transition">
+                    <SelectValue placeholder="Job Location" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup className="bg-white">
+                      {State.getStatesOfCountry("IN").map(({ name }) => (
+                        <SelectItem
+                          className="bg-white hover:bg-zinc-300"
+                          key={name}
+                          value={name}
+                        >
+                          {name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              )}
+            />
+            {errors.location && (
+              <p className="text-sm text-red-500 mt-1">
+                {errors.location.message}
+              </p>
+            )}
+          </div>
+
+          <div className="sm:col-span-1">
+            <Controller
+              name="company_id"
+              control={control}
+              render={({ field }) => (
+                <Select value={field.value} onValueChange={field.onChange}>
+                  <SelectTrigger className=" bg-white hover:border-zinc-500 transition">
+                    <SelectValue placeholder="Company">
+                      {field.value
+                        ? companies?.find((c) => c.id === Number(field.value))
+                            ?.name
+                        : "Company"}
+                    </SelectValue>
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup className="bg-white">
+                      {companies?.map(({ name, id }) => (
+                        <SelectItem
+                          className="bg-white hover:bg-zinc-300"
+                          key={id}
+                          value={id}
+                        >
+                          {name}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              )}
+            />
+            {errors.company_id && (
+              <p className="text-sm text-red-500 mt-1">
+                {errors.company_id.message}
+              </p>
+            )}
+          </div>
+          <div className="border-2 border-zinc-800 rounded-lg sm:col-span-1 text-center px-0 transition hover:bg-zinc-200">
+            <AddCompanyDrawer fetchCompanies={fnCompanies} />
+          </div>
+        </div>
+        <div className="rounded-lg overflow-hidden border hover:border-zinc-500 transition">
+          <Controller
+            name="requirements"
+            control={control}
+            render={({ field }) => (
+              <MDEditor value={field.value} onChange={field.onChange} />
+            )}
+          />
+        </div>
         {errors.requirements && (
-          <p className="text-red-500">{errors.requirements.message}</p>
+          <p className="text-sm text-red-500">{errors.requirements.message}</p>
         )}
-        {errors.errorCreateJob && (
-          <p className="text-red-500">{errors?.errorCreateJob?.message}</p>
-        )}
+
         {errorCreateJob?.message && (
-          <p className="text-red-500">{errorCreateJob?.message}</p>
+          <p className="text-sm text-red-500">{errorCreateJob.message}</p>
         )}
-        {loadingCreateJob && <BarLoader width={"100%"} color="#36d7b7" />}
-        <Button type="submit" variant="blue" size="lg" className="mt-2">
-          Submit
+
+        {loadingCreateJob && <BarLoader width="100%" color="#000000" />}
+
+        <Button
+          type="submit"
+          size="lg"
+          className="
+          bg-slate-900 text-white
+          hover:bg-slate-800
+          px-6
+          mt-2
+          h-12
+          text-base
+          hover:opacity-90
+          transition
+        "
+        >
+          Submit Job
         </Button>
       </form>
     </div>

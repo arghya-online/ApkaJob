@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import {
   Drawer,
   DrawerClose,
@@ -62,26 +61,80 @@ const AddCompanyDrawer = ({ fetchCompanies }) => {
   }, [loadingAddCompany]);
 
   return (
-    <Drawer>
-      <DrawerTrigger>
-        <Button type="button" size="sm" variant="secondary">
+    <Drawer className="z-50">
+      <DrawerTrigger asChild>
+        <Button
+          type="button"
+          size="lg"
+          variant="secondary"
+          className="hover:bg-zinc-200 transition-colors"
+        >
           Add Company
         </Button>
       </DrawerTrigger>
-      <DrawerContent>
-        <DrawerHeader>
-          <DrawerTitle>Add a New Company</DrawerTitle>
+
+      <DrawerContent
+        className="
+      bg-white
+      max-w-3xl
+      mx-auto
+      rounded-t-2xl
+      sm:rounded-2xl
+      shadow-2xl
+      px-4
+      sm:px-6
+      pb-6
+    "
+      >
+        {/* Header */}
+        <DrawerHeader className="border-b pb-3">
+          <DrawerTitle className="text-xl font-semibold text-zinc-900">
+            Add a New Company
+          </DrawerTitle>
         </DrawerHeader>
-        <form className="flex gap-2 p-4 pb-0">
+
+        {/* Form */}
+        <form
+          className="
+        mt-6
+        grid
+        grid-cols-1
+        sm:grid-cols-2
+        gap-4
+      "
+        >
           {/* Company Name */}
-          <Input placeholder="Company name" {...register("name")} />
+          <Input
+            placeholder="Company name"
+            {...register("name")}
+            className="
+          bg-white
+          border
+          border-zinc-300
+          hover:border-zinc-500
+          focus:border-black
+          transition
+        "
+          />
 
           {/* Company Logo */}
           <Input
             type="file"
             accept="image/*"
-            className=" file:text-gray-500"
             {...register("logo")}
+            className="
+          bg-white
+          border
+          border-zinc-300
+          hover:border-zinc-500
+          file:bg-zinc-100
+          file:text-zinc-700
+          file:border-0
+          file:px-3
+          file:py-1
+          file:rounded-md
+          transition
+        "
           />
 
           {/* Add Button */}
@@ -89,20 +142,39 @@ const AddCompanyDrawer = ({ fetchCompanies }) => {
             type="button"
             onClick={handleSubmit(onSubmit)}
             variant="destructive"
-            className="w-40"
+            className="
+          sm:col-span-2
+          h-11
+          hover:bg-red-600
+          transition
+        "
           >
-            Add
+            Add Company
           </Button>
         </form>
-        <DrawerFooter>
-          {errors.name && <p className="text-red-500">{errors.name.message}</p>}
-          {errors.logo && <p className="text-red-500">{errors.logo.message}</p>}
-          {errorAddCompany?.message && (
-            <p className="text-red-500">{errorAddCompany?.message}</p>
+
+        {/* Footer */}
+        <DrawerFooter className="mt-4 space-y-2">
+          {errors.name && (
+            <p className="text-sm text-red-500">{errors.name.message}</p>
           )}
-          {loadingAddCompany && <BarLoader width={"100%"} color="#36d7b7" />}
+
+          {errors.logo && (
+            <p className="text-sm text-red-500">{errors.logo.message}</p>
+          )}
+
+          {errorAddCompany?.message && (
+            <p className="text-sm text-red-500">{errorAddCompany.message}</p>
+          )}
+
+          {loadingAddCompany && <BarLoader width="100%" color="#000000" />}
+
           <DrawerClose asChild>
-            <Button type="button" variant="secondary">
+            <Button
+              type="button"
+              variant="secondary"
+              className="hover:bg-zinc-200 transition"
+            >
               Cancel
             </Button>
           </DrawerClose>

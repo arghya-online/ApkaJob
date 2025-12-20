@@ -8,7 +8,8 @@ export async function getJobs(
 
   let query = supabase
     .from("jobs")
-    .select("*, company:companies(name,logo_url), saved: saved_job(id)");
+    .select("*, company:companies(name,logo_url), saved: saved_job(id)")
+    .order("created_at", { ascending: false });
 
   if (location) {
     query = query.eq("location", location);
@@ -114,6 +115,20 @@ export async function addNewJob(token, _, jobData) {
     .select();
   if (error) {
     console.error("Error Adding New Job:", error);
+    return null;
+  }
+  return data;
+}
+
+export async function deleteJob(token, { job_id }) {
+  const supabase = await SupabaseClient(token);
+  const { data, error } = await supabase
+    .from("jobs")
+    .delete()
+    .eq("id", job_id)
+    .select();
+  if (error) {
+    console.error("Error Deleting Job:", error);
     return null;
   }
   return data;
