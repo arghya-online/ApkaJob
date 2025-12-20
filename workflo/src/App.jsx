@@ -3,7 +3,6 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ClerkProvider } from "@clerk/clerk-react";
 import { ThemeProvider } from "./components/ui/theme-provider";
 import { Analytics } from "@vercel/analytics/react";
-
 import AppLayout from "./layouts/app-layout";
 import Landing from "./pages/landing";
 import Onboarding from "./pages/onboarding";
@@ -27,11 +26,7 @@ function App() {
       children: [
         {
           path: "/",
-          element: (
-            <ProtectedRoutes>
-              <Landing />
-            </ProtectedRoutes>
-          ),
+          element: <Landing />,
         },
         {
           path: "/onboarding",
