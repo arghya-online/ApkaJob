@@ -1,11 +1,22 @@
+<<<<<<< HEAD
 # ApkaJob - Modern Recruitment Platform
 
 **ApkaJob** is a professional-grade recruitment platform engineered to streamline the hiring process. It connects candidates with recruiters through a seamless, interactive, and aesthetically refined interface. The application handles the entire lifecycle of a job, from initial posting to candidate application and status tracking.
+=======
+# ApkaJob – Modern Recruitment Platform
+
+**ApkaJob** is a professional-grade recruitment platform designed to simplify and structure the hiring process. It connects candidates and recruiters through a clean, interactive, and efficient interface, managing the complete job lifecycle from posting to application tracking.
+>>>>>>> b7a381abb64cb2c69833863c46d6d686d8e77e5f
 
 ---
 
 ## Table of Contents
+<<<<<<< HEAD
 - [Application Overview & Operation](#application-overview--operation)
+=======
+- [Application Overview](#application-overview)
+- [User Roles](#user-roles)
+>>>>>>> b7a381abb64cb2c69833863c46d6d686d8e77e5f
 - [Major Sections](#major-sections)
 - [Technology Stack & Services](#technology-stack--services)
 - [Design System (Shadcn UI)](#design-system-shadcn-ui)
@@ -14,6 +25,7 @@
 
 ---
 
+<<<<<<< HEAD
 ## Application Overview & Operation
 
 ApkaJob operates as a dual-facing platform serving two distinct user roles: **Recruiters** and **Candidates**.
@@ -25,12 +37,47 @@ The platform serves as an Applicant Tracking System (ATS). Recruiters can draft 
 
 <b>For Candidates:</b>
 ApkaJob functions as a job discovery and application engine. Candidates can browse a global list of opportunities, filter by meaningful criteria (location, remote work, company), and apply instantly. The application process supports resume uploads and tracks the status of every application submitted, giving candidates real-time visibility into their hiring progress.
+=======
+## Application Overview
+
+ApkaJob is a **dual-role platform** built for both **Recruiters** and **Candidates**.
+
+Users authenticate on entry and complete an onboarding flow where they select their role. This role is persisted and determines the UI, permissions, and available features throughout the application.
+
+---
+
+## User Roles
+
+### Recruiters
+ApkaJob acts as a lightweight **Applicant Tracking System (ATS)** for recruiters.
+
+Recruiters can:
+- Create and publish job postings with rich-text descriptions
+- View and manage all posted jobs from a dedicated dashboard
+- Open or close job listings
+- Review incoming applications
+- Update candidate statuses (Applied, Interviewing, Selected, Rejected)
+
+---
+
+### Candidates
+For candidates, ApkaJob works as a **job discovery and application platform**.
+
+Candidates can:
+- Browse all available job listings
+- Filter jobs by location, company, and remote availability
+- Search by job title
+- Apply directly with resume uploads
+- Track application status in real time
+- Save jobs for later reference
+>>>>>>> b7a381abb64cb2c69833863c46d6d686d8e77e5f
 
 ---
 
 ## Major Sections
 
 ### 1. Landing & Authentication
+<<<<<<< HEAD
 The entry point of the application features a high-performance landing page. Authentication is handled via **Clerk**, providing secure, passwordless, and social login options. New users are routed to a dedicated **Onboarding** flow to select their role.
 
 ### 2. Job Feed & Discovery
@@ -56,11 +103,46 @@ A specialized view for recruiters to:
 A personal space for candidates to:
 - Track the status of jobs they have applied to.
 - Access a list of bookmarked jobs for future consideration.
+=======
+- High-performance landing page
+- Authentication powered by **Clerk**
+- Supports passwordless and social logins
+- Role selection via onboarding flow
+
+---
+
+### 2. Job Feed & Discovery
+- Real-time filtering by location, company, and job attributes
+- Instant search for job titles
+- Job cards with key information at a glance
+
+---
+
+### 3. Job Details & Application
+- Markdown-rendered job descriptions and requirements
+- Hiring company information
+- Application drawer for seamless job applications
+
+---
+
+### 4. Recruiter Dashboard (My Jobs)
+- View all posted jobs
+- Monitor applicant counts
+- Toggle job status (Open / Closed)
+- Delete outdated listings
+
+---
+
+### 5. Candidate Dashboard (My Applications / Saved Jobs)
+- Track application status
+- Manage saved jobs
+>>>>>>> b7a381abb64cb2c69833863c46d6d686d8e77e5f
 
 ---
 
 ## Technology Stack & Services
 
+<<<<<<< HEAD
 The application relies on a modern, serverless stack designed for reliability and scale.
 
 ### Core Services
@@ -73,11 +155,28 @@ The application relies on a modern, serverless stack designed for reliability an
 - **React 19**: The view layer, leveraging the latest features for concurrent rendering.
 - **Vite**: The build tool and development server, ensuring instant HMR and optimized production builds.
 - **React Router v7**: Manages client-side routing and protected route logic.
+=======
+### Core Services
+- **Clerk**  
+  Authentication, session management, and role-based access control
+
+- **Supabase**
+  - PostgreSQL database for jobs, companies, and applications
+  - Storage buckets for resumes and company logos
+
+---
+
+### Frontend
+- **React 19**
+- **Vite**
+- **React Router v7**
+>>>>>>> b7a381abb64cb2c69833863c46d6d686d8e77e5f
 
 ---
 
 ## Design System (Shadcn UI)
 
+<<<<<<< HEAD
 The user interface is built using **Shadcn UI**, a collection of re-usable components built using Radix UI and Tailwind CSS.
 
 Unlike traditional component libraries, Shadcn UI provides raw, accessible code that is integrated directly into the project. This allows for:
@@ -90,22 +189,53 @@ Key Shadcn components used include:
 - **Accordions**: For organizing dense information.
 - **Cards**: For consistent data display.
 - **Form Elements**: Selects, Inputs, and TextAreas enhanced with **Zod** validation.
+=======
+The UI is built using **Shadcn UI**, powered by **Radix UI** and **Tailwind CSS**.
+
+Key advantages:
+- Full component customization
+- Zero runtime overhead
+- Built-in accessibility support
+
+### Components Used
+- Drawers and dialogs
+- Cards
+- Accordions
+- Form elements with **Zod** validation
+>>>>>>> b7a381abb64cb2c69833863c46d6d686d8e77e5f
 
 ---
 
 ## Database Schema
 
+<<<<<<< HEAD
 The functional data model is hosted on Supabase and consists of four primary entities:
 
 - **Jobs**: The central entity containing all posting details (title, description, location) and status flags (open/closed).
 - **Companies**: Stores organizational data and branding assets (logos), linked to jobs.
 - **Applications**: Connects a Candidate to a Job. This table tracks the application status and stores the reference to the candidate's Resume file.
 - **Saved Jobs**: A relational join table enabling the "Bookmark" feature for candidates.
+=======
+The database consists of four main entities:
+
+- **Jobs**  
+  Job details, location, and open/closed status
+
+- **Companies**  
+  Company information and branding assets
+
+- **Applications**  
+  Candidate-to-job mapping, application status, resume reference
+
+- **Saved Jobs**  
+  Bookmarking functionality for candidates
+>>>>>>> b7a381abb64cb2c69833863c46d6d686d8e77e5f
 
 ---
 
 ## Installation & Setup
 
+<<<<<<< HEAD
 1. **Clone the repository**
    ```bash
    git clone https://github.com/your-username/ApkaJob.git
@@ -129,3 +259,16 @@ The functional data model is hosted on Supabase and consists of four primary ent
    ```bash
    npm run dev
    ```
+=======
+### 1. Create a .env file in the root directory and add the following:
+VITE_CLERK_PUBLISHABLE_KEY=...
+VITE_SUPABASE_URL=...
+VITE_SUPABASE_ANON_KEY=...
+
+### 2. Clone the Repository
+```bash
+git clone https://github.com/your-username/WorkFlo.git
+cd ApkaJob
+npm install
+npm run dev
+>>>>>>> b7a381abb64cb2c69833863c46d6d686d8e77e5f
