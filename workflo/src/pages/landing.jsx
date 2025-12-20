@@ -95,6 +95,12 @@ function Landing() {
                   Post a job
                 </Link>
                 <Link
+                  to="/jobs"
+                  className="bg-slate-900 px-10 py-3.5 text-sm font-semibold text-white hover:bg-slate-800 transition rounded shadow-sm"
+                >
+                  Browse jobs
+                </Link>
+                <Link
                   to="/my-jobs"
                   className="border border-slate-300 px-10 py-3.5 text-sm font-semibold text-slate-700 hover:border-slate-400 hover:text-slate-900 transition rounded bg-white"
                 >

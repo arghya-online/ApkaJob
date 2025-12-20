@@ -33,7 +33,7 @@ function Header() {
 
   return (
     <>
-      <nav className="top-0 z-50 flex items-center justify-between px-4 sm:px-8 h-16 border-b bg-white/10 backdrop-blur-sm sticky">
+      <nav className="top-0 z-50 mb-10 flex items-center justify-between px-4 sm:px-8 h-16 border-b bg-white/10 backdrop-blur-sm sticky">
         <Link to="/" className="flex items-center">
           <img
             src={Logo}
@@ -65,6 +65,13 @@ function Header() {
           {role === "recruiter" && (
             <>
               <Link
+                to="/jobs"
+                className="text-slate-600 hover:text-slate-900 transition flex items-center gap-2"
+              >
+                <BriefcaseBusiness size={18} />
+                Jobs
+              </Link>
+              <Link
                 to="/my-jobs"
                 className="text-slate-600 hover:text-slate-900 transition flex items-center gap-2"
               >
@@ -77,6 +84,13 @@ function Header() {
               >
                 <PenBox size={18} />
                 Post Job
+              </Link>
+              <Link
+                to="/saved-jobs"
+                className="text-slate-600 hover:text-slate-900 transition flex items-center gap-2"
+              >
+                <Heart size={18} />
+                Saved Jobs
               </Link>
             </>
           )}
@@ -129,6 +143,20 @@ function Header() {
                     label="My Jobs"
                     labelIcon={<BriefcaseBusiness size={15} />}
                     href="/my-jobs"
+                  />
+                )}
+                {role === "recruiter" && (
+                  <UserButton.Link
+                    label="Saved Jobs"
+                    labelIcon={<Heart size={15} />}
+                    href="/saved-jobs"
+                  />
+                )}
+                {role === "recruiter" && (
+                  <UserButton.Link
+                    label="Post Job"
+                    labelIcon={<PenBox size={15} />}
+                    href="/post-job"
                   />
                 )}
                 <UserButton.Action label="manageAccount" />
