@@ -3,13 +3,18 @@ import { Link, useSearchParams } from "react-router-dom";
 import Logo from "/logo.png";
 import { Button } from "../components/ui/button";
 import { SignedIn, SignedOut, UserButton, SignIn } from "@clerk/clerk-react";
-import { BriefcaseBusiness, PenBox } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  Heart,
+  PenBox,
+  LayoutDashboard,
+} from "lucide-react";
 import { useUser } from "@clerk/clerk-react";
 
 function Header() {
   const [showSignIn, setShowSignIn] = useState(false);
   const [search, setSearch] = useSearchParams("");
-  const { user } = useUser();
+  const { user, isLoaded } = useUser();
 
   useEffect(() => {
     if (search.get("sign-in")) {
@@ -24,69 +29,86 @@ function Header() {
     }
   };
 
+  const role = user?.unsafeMetadata?.role;
+
   return (
     <>
-      {/* HEADER */}
-      <nav
-        className="
-          sticky top-0 z-50
-          bg-white
-          flex items-center justify-between
-          px-4 sm:px-8
-          h-16
-          border-b
-        "
-      >
-        {/* LOGO */}
+      <nav className="top-0 z-50 flex items-center justify-between px-4 sm:px-8 h-16 border-b bg-white/10 backdrop-blur-sm sticky">
         <Link to="/" className="flex items-center">
           <img
             src={Logo}
             alt="ApkaJob Logo"
-            className="
-              w-28
-              h-auto
-              object-contain
-            "
-            /* ❗ FIX:
-               Earlier h-40 was forcing the navbar height to ~160px
-               This was the main reason for the huge bottom gap
-            */
+            className="w-28 h-auto object-contain"
           />
         </Link>
 
-        {/* ROLE */}
-        <span
-          className="
-            hidden sm:inline-block
-            text-xs
-            font-semibold
-            px-3 py-1
-            rounded-full
-            bg-zinc-100
-            text-zinc-700
-          "
-        >
-          {user?.unsafeMetadata?.role || "GUEST"}
-        </span>
+        <div className="hidden md:flex gap-8 items-center font-medium">
+          {role === "candidate" && (
+            <>
+              <Link
+                to="/jobs"
+                className="text-slate-600 hover:text-slate-900 transition flex items-center gap-2"
+              >
+                <BriefcaseBusiness size={18} />
+                Jobs
+              </Link>
+              <Link
+                to="/saved-jobs"
+                className="text-slate-600 hover:text-slate-900 transition flex items-center gap-2"
+              >
+                <Heart size={18} />
+                Saved Jobs
+              </Link>
+            </>
+          )}
 
-        {/* AUTH ACTIONS */}
-        <div>
+          {role === "recruiter" && (
+            <>
+              <Link
+                to="/my-jobs"
+                className="text-slate-600 hover:text-slate-900 transition flex items-center gap-2"
+              >
+                <LayoutDashboard size={18} />
+                My Jobs
+              </Link>
+              <Link
+                to="/post-job"
+                className="text-slate-600 hover:text-slate-900 transition flex items-center gap-2"
+              >
+                <PenBox size={18} />
+                Post Job
+              </Link>
+            </>
+          )}
+        </div>
+
+        <div className="flex items-center gap-4">
           <SignedOut>
             <Button
               variant="outline"
-              className="
-                bg-slate-900 text-white
-                hover:bg-slate-800
-                transition
-              "
+              className="hidden sm:flex"
               onClick={() => setShowSignIn(true)}
             >
-              <PenBox className="mr-2 h-4 w-4" />
               Login
+            </Button>
+
+            <Button
+              variant="ghost"
+              size="icon"
+              className="sm:hidden"
+              onClick={() => setShowSignIn(true)}
+            >
+              <PenBox className="h-5 w-5" />
             </Button>
           </SignedOut>
 
           <SignedIn>
+            {role && (
+              <span className="hidden sm:inline-block text-xs font-semibold px-3 py-1 rounded-full bg-zinc-100 text-zinc-700 capitalize">
+                {role}
+              </span>
+            )}
+
             <UserButton
               appearance={{
                 elements: {
@@ -95,32 +117,30 @@ function Header() {
               }}
             >
               <UserButton.MenuItems>
-                <UserButton.Link
-                  label="My Jobs"
-                  labelIcon={<BriefcaseBusiness size={15} />}
-                  href="/my-jobs"
-                />
-                <UserButton.Link
-                  label="Saved Jobs"
-                  labelIcon={<PenBox size={15} />}
-                  href="/saved-jobs"
-                />
+                {role === "candidate" && (
+                  <UserButton.Link
+                    label="Saved Jobs"
+                    labelIcon={<Heart size={15} />}
+                    href="/saved-jobs"
+                  />
+                )}
+                {role === "recruiter" && (
+                  <UserButton.Link
+                    label="My Jobs"
+                    labelIcon={<BriefcaseBusiness size={15} />}
+                    href="/my-jobs"
+                  />
+                )}
                 <UserButton.Action label="manageAccount" />
+                <UserButton.Action label="signOut" />
               </UserButton.MenuItems>
             </UserButton>
           </SignedIn>
         </div>
       </nav>
-
-      {/* SIGN IN MODAL */}
       {showSignIn && (
         <div
-          className="
-            fixed inset-0
-            flex items-center justify-center
-            bg-black/50
-            z-10000
-          "
+          className="fixed inset-0 flex items-center justify-center bg-black/50 z-1000 p-4"
           onClick={handleOverlayClick}
         >
           <SignIn

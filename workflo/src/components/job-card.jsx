@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+
 import { useUser } from "@clerk/clerk-react";
 import {
   Card,
@@ -13,23 +13,53 @@ import { Button } from "./ui/button";
 import { MapPin, Trash2, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
+import { saveJob, deleteJob } from "@/api/apiJobs";
+import useFetch from "@/hooks/use-fetch";
 
 function JobCard({
   job,
   isMyJob = false,
   savedInit = false,
-  onJobAction = () => {},
+  onJobAction = () => { },
 }) {
   const [saved, setSaved] = useState(savedInit);
   const { user } = useUser();
 
+  const {
+    fn: fnSavedJob,
+    data: savedJob,
+    loading: loadingSavedJob,
+  } = useFetch(saveJob, {
+    alreadySaved: saved,
+  });
+
+  const handleSaveJob = async () => {
+    await fnSavedJob({
+      user_id: user.id,
+      job_id: job.id,
+    });
+    setSaved(!saved);
+    onJobAction();
+  };
+
+  console.log("LogoId:", job.company?.logo_url);
+
+  const { loading: loadingDeleteJob, fn: fnDeleteJob } = useFetch(deleteJob, {
+    job_id: job.id,
+  });
+
+  const handleDeleteJob = async () => {
+    await fnDeleteJob();
+    onJobAction();
+  };
+
   useEffect(() => {
-    setSaved(savedInit);
-  }, [savedInit]);
+    if (savedJob !== undefined) setSaved(savedJob?.length > 0);
+  }, [savedJob]);
 
   return (
     <Card className="group flex h-full flex-col rounded-xl border bg-background transition-all duration-300 hover:shadow-lg">
-      {/* HEADER */}
+
       <CardHeader className="flex flex-row items-start justify-between gap-4 pb-3">
         <div className="flex items-center gap-3 min-w-0">
           {job.company && (
@@ -57,25 +87,25 @@ function JobCard({
             <Trash2
               size={18}
               className="cursor-pointer text-muted-foreground transition hover:text-destructive"
-              onClick={onJobAction}
-              disabled={loadingSavedJob}
+              onClick={handleDeleteJob}
+              disabled={loadingDeleteJob}
             />
           ) : (
             <Heart
               size={18}
               fill={saved ? "red" : "none"}
-              className={`cursor-pointer transition ${
-                saved
+              className={`cursor-pointer transition ${saved
                   ? "text-red-500"
                   : "text-muted-foreground hover:text-foreground"
-              }`}
-              onClick={() => setSaved(!saved)}
+                }`}
+              onClick={handleSaveJob}
+              disabled={loadingSavedJob}
             />
           )}
         </CardAction>
       </CardHeader>
 
-      {/* CONTENT */}
+
       <CardContent className="grow space-y-3">
         <div className="flex flex-wrap gap-2">
           <span className="inline-flex items-center gap-1 rounded-full bg-muted px-2.5 py-1 text-xs font-medium">
@@ -89,7 +119,6 @@ function JobCard({
         </p>
       </CardContent>
 
-      {/* FOOTER */}
       <CardFooter className="mt-auto flex items-center justify-between border-t bg-muted/30 px-5 py-3">
         <span className="text-xs text-muted-foreground">
           Posted {new Date(job.created_at).toLocaleDateString()}

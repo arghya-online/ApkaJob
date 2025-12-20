@@ -17,7 +17,7 @@ function TypewriterText({ text }) {
     <span className="inline">
       {text.slice(0, index)}
       {index < text.length && (
-        <span className="inline-block w-[2px] h-[1em] bg-slate-900 ml-1 align-middle animate-pulse" />
+        <span className="inline-block w-0.5 h-[1em] bg-slate-900 ml-1 align-middle animate-pulse" />
       )}
     </span>
   );

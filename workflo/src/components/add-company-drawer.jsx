@@ -86,14 +86,14 @@ const AddCompanyDrawer = ({ fetchCompanies }) => {
       pb-6
     "
       >
-        {/* Header */}
+
         <DrawerHeader className="border-b pb-3">
           <DrawerTitle className="text-xl font-semibold text-zinc-900">
             Add a New Company
           </DrawerTitle>
         </DrawerHeader>
 
-        {/* Form */}
+
         <form
           className="
         mt-6
@@ -103,7 +103,7 @@ const AddCompanyDrawer = ({ fetchCompanies }) => {
         gap-4
       "
         >
-          {/* Company Name */}
+
           <Input
             placeholder="Company name"
             {...register("name")}
@@ -117,7 +117,7 @@ const AddCompanyDrawer = ({ fetchCompanies }) => {
         "
           />
 
-          {/* Company Logo */}
+
           <Input
             type="file"
             accept="image/*"
@@ -137,7 +137,7 @@ const AddCompanyDrawer = ({ fetchCompanies }) => {
         "
           />
 
-          {/* Add Button */}
+
           <Button
             type="button"
             onClick={handleSubmit(onSubmit)}
@@ -153,7 +153,7 @@ const AddCompanyDrawer = ({ fetchCompanies }) => {
           </Button>
         </form>
 
-        {/* Footer */}
+
         <DrawerFooter className="mt-4 space-y-2">
           {errors.name && (
             <p className="text-sm text-red-500">{errors.name.message}</p>

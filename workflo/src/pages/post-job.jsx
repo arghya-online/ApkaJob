@@ -129,7 +129,7 @@ const PostJob = () => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-end">
-          {/* Location */}
+
           <div className="sm:col-span-1">
             <Controller
               name="location"
@@ -172,7 +172,7 @@ const PostJob = () => {
                     <SelectValue placeholder="Company">
                       {field.value
                         ? companies?.find((c) => c.id === Number(field.value))
-                            ?.name
+                          ?.name
                         : "Company"}
                     </SelectValue>
                   </SelectTrigger>

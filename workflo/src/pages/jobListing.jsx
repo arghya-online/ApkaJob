@@ -43,7 +43,7 @@ function JobListing() {
   const [selectedState, setSelectedState] = useState("");
 
   const {
-    // loading: loadingCompanies,
+
     data: companies,
     fn: fnCompanies,
   } = useFetch(getCompanies);
@@ -158,11 +158,10 @@ function JobListing() {
                         className="cursor-pointer"
                       >
                         <Check
-                          className={`mr-2 h-4 w-4 ${
-                            selectedState === isoCode
+                          className={`mr-2 h-4 w-4 ${selectedState === isoCode
                               ? "opacity-100"
                               : "opacity-0"
-                          }`}
+                            }`}
                         />
                         {name}
                       </CommandItem>
@@ -201,9 +200,8 @@ function JobListing() {
                       >
                         {name}
                         <Check
-                          className={`ml-auto h-4 w-4 ${
-                            company_id === id ? "opacity-100" : "opacity-0"
-                          }`}
+                          className={`ml-auto h-4 w-4 ${company_id === id ? "opacity-100" : "opacity-0"
+                            }`}
                         />
                       </CommandItem>
                     ))}
@@ -240,9 +238,8 @@ function JobListing() {
                     >
                       On-Site
                       <Check
-                        className={`ml-auto h-4 w-4 ${
-                          !isRemote ? "opacity-100" : "opacity-0"
-                        }`}
+                        className={`ml-auto h-4 w-4 ${!isRemote ? "opacity-100" : "opacity-0"
+                          }`}
                       />
                     </CommandItem>
                     <CommandItem
@@ -255,9 +252,8 @@ function JobListing() {
                     >
                       Remote
                       <Check
-                        className={`ml-auto h-4 w-4 ${
-                          isRemote ? "opacity-100" : "opacity-0"
-                        }`}
+                        className={`ml-auto h-4 w-4 ${isRemote ? "opacity-100" : "opacity-0"
+                          }`}
                       />
                     </CommandItem>
                   </CommandGroup>

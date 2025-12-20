@@ -80,14 +80,13 @@ function ApplyJobDrawer({ job, user, fetchJob, applied }) {
 
   return (
     <Drawer>
-      {/* Trigger */}
       <DrawerTrigger asChild>
         <Button className="h-11 px-6 bg-black text-white hover:bg-zinc-800">
           Apply Now
         </Button>
       </DrawerTrigger>
 
-      {/* Centered Overlay */}
+
       <DrawerContent
         className="
           fixed inset-0 z-50
@@ -96,7 +95,7 @@ function ApplyJobDrawer({ job, user, fetchJob, applied }) {
           bg-black/40
         "
       >
-        {/* Card */}
+
         <div
           className="
             relative w-full
@@ -109,7 +108,7 @@ function ApplyJobDrawer({ job, user, fetchJob, applied }) {
             overflow-y-auto
           "
         >
-          {/* Close (X) */}
+
           <DrawerClose asChild>
             <button
               className="
@@ -125,7 +124,7 @@ function ApplyJobDrawer({ job, user, fetchJob, applied }) {
             </button>
           </DrawerClose>
 
-          {/* Header */}
+
           <DrawerHeader className="px-0">
             <DrawerTitle className="text-xl font-semibold text-zinc-900">
               Apply for {job?.title}
@@ -135,7 +134,7 @@ function ApplyJobDrawer({ job, user, fetchJob, applied }) {
             </DrawerDescription>
           </DrawerHeader>
 
-          {/* Form */}
+
           <form className="mt-6 space-y-5">
             <div className="space-y-1.5">
               <Label className="text-sm text-zinc-700">
@@ -167,7 +166,7 @@ function ApplyJobDrawer({ job, user, fetchJob, applied }) {
               )}
             </div>
 
-            {/* Qualification */}
+
             <div className="space-y-2">
               <Label className="text-sm text-zinc-700">
                 Highest Qualification
@@ -209,7 +208,7 @@ function ApplyJobDrawer({ job, user, fetchJob, applied }) {
               />
             </div>
 
-            {/* Resume */}
+
             <div className="space-y-1.5">
               <Label className="text-sm text-zinc-700">Upload Resume</Label>
               <Input
@@ -225,7 +224,7 @@ function ApplyJobDrawer({ job, user, fetchJob, applied }) {
               )}
             </div>
 
-            {/* Actions */}
+
             <div className="pt-4 flex justify-end">
               <Button
                 className="h-11 bg-black text-white hover:bg-zinc-800 lg:mb-8 sm:mb-6"

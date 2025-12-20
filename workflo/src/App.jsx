@@ -1,6 +1,7 @@
 import React, { Children } from "react";
 import supabase from "./utils/supabase";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import MyJobs from "./pages/my-jobs";
 import SavedJobs from "./pages/saved-job";
 import AppLayout from "./layouts/app-layout";
 import Landing from "./pages/landing";
@@ -59,6 +60,14 @@ function App() {
           element: (
             <ProtectedRoutes>
               <SavedJobs />
+            </ProtectedRoutes>
+          ),
+        },
+        {
+          path: "/my-jobs",
+          element: (
+            <ProtectedRoutes>
+              <MyJobs />
             </ProtectedRoutes>
           ),
         },

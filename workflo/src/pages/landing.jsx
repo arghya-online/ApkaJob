@@ -1,15 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import Autoplay from "embla-carousel-autoplay";
-import Banner from "/banner.png";
-import { HelpCircle, ChevronDown } from "lucide-react";
+import {
+  HelpCircle,
+  ChevronDown,
+  LogIn,
+  Search,
+  Bookmark,
+  UserCircle,
+} from "lucide-react";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
 import { Card, CardHeader, CardContent, CardTitle } from "@/components/ui/card";
-
+import { useUser } from "@clerk/clerk-react";
+import Banner from "/banner.png";
 import companies from "../data/companies";
 import faq from "../data/faq";
 import {
@@ -18,46 +25,97 @@ import {
   AccordionTrigger,
   AccordionContent,
 } from "@radix-ui/react-accordion";
-import { Navigate } from "react-router-dom";
 import TypewriterText from "@/components/TypeWriterText.jsx";
 
+import ParticleBackground from "@/components/ParticleBackground";
+
 function Landing() {
+  const { user } = useUser();
+  const role = user?.unsafeMetadata?.role;
   return (
     <main className="w-full">
-      {/* HERO */}
-      <section className="max-w-5xl mx-auto px-6 pt-10 pb-10 text-center">
-        <h1 className="heading text-4xl sm:text-5xl md:text-6xl font-semibold text-slate-900 leading-tight">
-          <TypewriterText text="Hiring and job search, without the usual chaos" />
-        </h1>
+      <ParticleBackground />
+      <section className="max-w-5xl mx-auto px-6 pb-10 text-center min-h-screen flex flex-col justify-center">
+        <img
+          src={Banner}
+          alt="Banner"
+          className="lg:h-50 w-full object-cover"
+        />
+        <div>
+          <h1 className="heading text-2xl sm:text-3xl md:text-6xl font-semibold text-slate-900 leading-snug md:leading-tight mt-6">
+            <TypewriterText text="Hiring and job search, without the usual chaos" />
+          </h1>
 
-        <p className="mt-6 text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto">
-          One profile. Clear applications. Real recruiters. ApkaJob keeps hiring
-          simple for everyone.
-        </p>
+          <p className="mt-6 text-lg sm:text-xl text-slate-600 max-w-2xl mx-auto">
+            One profile. Clear applications. Real recruiters. ApkaJob keeps
+            hiring simple for everyone.
+          </p>
 
-        <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
-          <Link
-            to="/jobs"
-            className="bg-slate-900 px-10 py-3.5 text-sm font-semibold text-white hover:bg-slate-800 transition"
-          >
-            Find jobs
-          </Link>
+          <div className="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+            {!role && (
+              <>
+                <Link
+                  to="/jobs"
+                  className="bg-slate-900 px-10 py-3.5 text-sm font-semibold text-white hover:bg-slate-800 transition rounded shadow-sm"
+                >
+                  Find jobs
+                </Link>
+                <Link
+                  to="/post-job"
+                  className="border border-slate-300 px-10 py-3.5 text-sm font-semibold text-slate-700 hover:border-slate-400 hover:text-slate-900 transition rounded bg-white"
+                >
+                  Hire talent
+                </Link>
+              </>
+            )}
 
-          <Link
-            to="/post-job"
-            className="border border-slate-300 px-10 py-3.5 text-sm font-semibold text-slate-700 hover:border-slate-400 hover:text-slate-900 transition"
-          >
-            Hire talent
-          </Link>
+            {role === "candidate" && (
+              <>
+                <Link
+                  to="/jobs"
+                  className="bg-slate-900 px-10 py-3.5 text-sm font-semibold text-white hover:bg-slate-800 transition rounded shadow-sm"
+                >
+                  Browse jobs
+                </Link>
+                <Link
+                  to="/saved-jobs"
+                  className="border border-slate-300 px-10 py-3.5 text-sm font-semibold text-slate-700 hover:border-slate-400 hover:text-slate-900 transition rounded bg-white"
+                >
+                  View saved jobs
+                </Link>
+              </>
+            )}
+
+            {role === "recruiter" && (
+              <>
+                <Link
+                  to="/post-job"
+                  className="bg-slate-900 px-10 py-3.5 text-sm font-semibold text-white hover:bg-slate-800 transition rounded shadow-sm"
+                >
+                  Post a job
+                </Link>
+                <Link
+                  to="/my-jobs"
+                  className="border border-slate-300 px-10 py-3.5 text-sm font-semibold text-slate-700 hover:border-slate-400 hover:text-slate-900 transition rounded bg-white"
+                >
+                  Manage my jobs
+                </Link>
+              </>
+            )}
+          </div>
+
+          <p className="mt-6 text-sm text-slate-500">
+            {role === "recruiter"
+              ? "Post jobs and manage applicants in one place"
+              : role === "candidate"
+              ? "Apply faster with one profile"
+              : "Trusted by growing teams and early-career professionals"}
+          </p>
         </div>
-
-        <p className="mt-6 text-sm text-slate-500">
-          Trusted by growing teams and early-career professionals
-        </p>
       </section>
-      <div className="bg-zinc-950 h-0.5"></div>
+      <div className="bg-zinc-950 h-0.5" />
 
-      <section className="max-w-6xl mx-auto px-6 py-10 ">
+      <section className="max-w-6xl mx-auto px-6 py-10">
         <CardHeader className="mb-6">
           <CardTitle className="text-3xl font-semibold text-slate-900 text-center pb-10">
             Trusted By
@@ -79,7 +137,7 @@ function Landing() {
                     alt={company.name}
                     className="h-14 sm:h-16 object-contain opacity-100 group-hover:opacity-100 transition"
                   />
-                  <p className=" text-sm font-semibold text-slate-800 group-hover:text-slate-700 transition text-center">
+                  <p className="text-sm font-semibold text-slate-800 group-hover:text-slate-700 transition text-center">
                     {company.name}
                   </p>
                 </div>
@@ -89,41 +147,82 @@ function Landing() {
         </Carousel>
       </section>
 
-      <section className="max-w-6xl mx-auto px-6 py-10">
-        <h2 className="text-3xl sm:text-4xl font-semibold text-center text-slate-900 mb-14">
-          How ApkaJob works
+      <section className="max-w-6xl mx-auto px-6 py-14">
+        <h2 className="text-3xl sm:text-4xl font-semibold text-center text-slate-900 mb-12">
+          Getting started on{" "}
+          <img src="logo.png" alt="ApkaJob" className="inline h-12 ml-2" />
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
-          {[
-            {
-              title: "Create your profile",
-              desc: "Set up once with your skills, resume, and preferences.",
-            },
-            {
-              title: "Apply or post jobs",
-              desc: "Job seekers apply quickly. Recruiters post roles in minutes.",
-            },
-            {
-              title: "Track and connect",
-              desc: "Follow application status and connect directly.",
-            },
-          ].map((step, i) => (
-            <div key={i} className="text-center">
-              <div className="text-4xl font-semibold text-slate-900 mb-4">
-                {i + 1}
-              </div>
-              <h3 className="text-lg font-medium text-slate-900">
-                {step.title}
-              </h3>
-              <p className="mt-2 text-slate-600 text-sm">{step.desc}</p>
+        <div className="max-w-3xl mx-auto space-y-8">
+          <div className="flex items-start gap-4">
+            <div className="bg-slate-100 p-3 rounded-full">
+              <LogIn className="h-5 w-5 text-slate-700" />
             </div>
-          ))}
+            <div>
+              <h3 className="text-lg font-medium text-slate-900">
+                Sign up or log in
+              </h3>
+              <p className="mt-1 text-sm text-slate-600 leading-relaxed">
+                Create an account or log in to ApkaJob to start exploring job
+                opportunities.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-4">
+            <div className="bg-slate-100 p-3 rounded-full">
+              <Search className="h-5 w-5 text-slate-700" />
+            </div>
+            <div>
+              <h3 className="text-lg font-medium text-slate-900">
+                Browse jobs that interest you
+              </h3>
+              <p className="mt-1 text-sm text-slate-600 leading-relaxed">
+                Visit the Browse Jobs page to view openings, read details, and
+                find roles that fit you.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-4">
+            <div className="bg-slate-100 p-3 rounded-full">
+              <Bookmark className="h-5 w-5 text-slate-700" />
+            </div>
+            <div>
+              <h3 className="text-lg font-medium text-slate-900">
+                Apply or save jobs
+              </h3>
+              <p className="mt-1 text-sm text-slate-600 leading-relaxed">
+                Apply directly using your profile or save jobs to come back to
+                them later.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-start gap-4">
+            <div className="bg-slate-100 p-3 rounded-full">
+              <UserCircle className="h-5 w-5 text-slate-700" />
+            </div>
+            <div>
+              <h3 className="text-lg font-medium text-slate-900">
+                Manage your profile
+              </h3>
+              <p className="mt-1 text-sm text-slate-600 leading-relaxed">
+                Use the profile icon to upload a profile photo, update details,
+                and manage your account.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
-
       <section className="max-w-6xl mx-auto px-6 pb-20 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <Card className="border border-slate-300 bg-white">
+        <Card
+          className={`border bg-white transition-all ${
+            role === "recruiter"
+              ? "opacity-50 grayscale hover:opacity-100 hover:grayscale-0"
+              : "border-slate-300 shadow-sm"
+          }`}
+        >
           <CardHeader>
             <CardTitle>For Job Hunters</CardTitle>
           </CardHeader>
@@ -131,16 +230,24 @@ function Landing() {
             <p>• Apply with one profile</p>
             <p>• Track applications clearly</p>
             <p>• Get noticed by real recruiters</p>
-            <Link
-              to="/jobs"
-              className="inline-block mt-4 font-semibold text-slate-900"
-            >
-              Browse jobs →
-            </Link>
+            {(!role || role === "candidate") && (
+              <Link
+                to="/jobs"
+                className="border-2 border-slate-900 p-1 px-3 inline-block mt-4 font-semibold text-slate-900 hover:bg-slate-100 transition text-xs uppercase tracking-wider"
+              >
+                Browse jobs
+              </Link>
+            )}
           </CardContent>
         </Card>
 
-        <Card className="border border-slate-300 bg-white">
+        <Card
+          className={`border bg-white transition-all ${
+            role === "candidate"
+              ? "opacity-50 grayscale hover:opacity-100 hover:grayscale-0"
+              : "border-slate-300 shadow-sm"
+          }`}
+        >
           <CardHeader>
             <CardTitle>For Recruiters</CardTitle>
           </CardHeader>
@@ -148,17 +255,19 @@ function Landing() {
             <p>• Post jobs quickly</p>
             <p>• View serious candidates</p>
             <p>• Hire without noise</p>
-            <Link
-              to="/post-job"
-              className="inline-block mt-4 font-semibold text-slate-900"
-            >
-              Post a job →
-            </Link>
+            {(!role || role === "recruiter") && (
+              <Link
+                to="/post-job"
+                className="border-2 border-slate-900 p-1 px-3 inline-block mt-4 font-semibold text-slate-900 hover:bg-slate-100 transition text-xs uppercase tracking-wider"
+              >
+                Post a job
+              </Link>
+            )}
           </CardContent>
         </Card>
       </section>
 
-      <section className="max-w-7xl mx-auto py-10">
+      <section className="max-w-7xl mx-auto py-10 bg-slate-50/50">
         <p className="text-center text-sm text-slate-500 mb-3">Still unsure?</p>
 
         <h2 className="text-3xl sm:text-4xl font-semibold text-center text-slate-900 mb-12">
@@ -168,7 +277,7 @@ function Landing() {
         <Accordion
           type="single"
           collapsible
-          className="w-full max-w-4xl mx-auto"
+          className="w-full max-w-4xl mx-auto px-6"
         >
           {faq.map((item, index) => (
             <AccordionItem
@@ -190,8 +299,7 @@ function Landing() {
         </Accordion>
       </section>
 
-      {/* FINAL CTA */}
-      <section className="py-10 text-center border-t">
+      <section className="py-20 text-center border-t bg-white">
         <h2 className="text-3xl sm:text-4xl font-semibold text-slate-900">
           Start with clarity, not confusion
         </h2>
@@ -199,12 +307,12 @@ function Landing() {
           Whether you’re applying or hiring, ApkaJob keeps it simple.
         </p>
 
-        <div className="mt-15 flex justify-center">
+        <div className="mt-10 flex justify-center">
           <Link
-            to="/jobs"
-            className="bg-slate-900 px-12 py-3.5 text-sm font-semibold text-white hover:bg-slate-800 transition"
+            to={role === "recruiter" ? "/post-job" : "/jobs"}
+            className="bg-slate-900 px-12 py-3.5 text-sm font-semibold text-white hover:bg-slate-800 transition rounded shadow-lg"
           >
-            Get started
+            {role === "recruiter" ? "Post a Job Now" : "Get Started"}
           </Link>
         </div>
       </section>

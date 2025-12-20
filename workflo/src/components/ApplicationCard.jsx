@@ -18,7 +18,7 @@ import { updateApplicationStatus } from "@/api/apiApplication";
 import useFetch from "@/hooks/use-fetch";
 import { BarLoader } from "react-spinners";
 
-function ApplicationCard({ application, isCandidate = false }) {
+function ApplicationCard({ application, isCandidate = false, fetchJob }) {
   const handleDownload = () => {
     const link = document.createElement("a");
     link.href = application?.resume;
@@ -33,18 +33,21 @@ function ApplicationCard({ application, isCandidate = false }) {
   );
 
   return (
-    <Card>
+    <Card className="bg-amber-50">
       {loadingStatus && <BarLoader width={"100%"} color="#36d7b7" />}
       <CardHeader>
         <CardTitle className="flex justify-between font-bold">
           {isCandidate
             ? `${application?.job?.title} at ${application?.job?.company?.name}`
             : application?.name}
-          <Download
-            size={18}
-            className="bg-white text-black rounded-full h-8 w-8 p-1.5 cursor-pointer"
-            onClick={handleDownload}
-          />
+          <div className="flex flex-col items-center cursor-pointer">
+            <Download
+              size={18}
+              className="bg-black text-white rounded-full h-10 w-10 p-1 cursor-pointer"
+              onClick={handleDownload}
+            />
+            <p className="text-sm">Resume</p>
+          </div>
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-4 flex-1">
@@ -73,18 +76,29 @@ function ApplicationCard({ application, isCandidate = false }) {
         ) : (
           <Select
             onValueChange={(value) => {
-              fnStatus(application.id, value).then(() => {});
+              fnStatus(application.id, value).then(() => fetchJob && fetchJob());
             }}
             defaultValue={application.status}
           >
-            <SelectTrigger className="w-52">
-              <SelectValue placeholder="Application Status" />
+            <SelectTrigger className="w-52 hover:border-zinc-500 transition">
+              <SelectValue
+                className="text-black font-bold"
+                placeholder="Application Status"
+              />
             </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="applied">Applied</SelectItem>
-              <SelectItem value="interviewing">Interviewing</SelectItem>
-              <SelectItem value="hired">Hired</SelectItem>
-              <SelectItem value="rejected">Rejected</SelectItem>
+            <SelectContent className="bg-white">
+              <SelectItem className="hover:bg-zinc-200" value="applied">
+                Applied
+              </SelectItem>
+              <SelectItem className="hover:bg-zinc-200" value="interviewing">
+                Interviewing
+              </SelectItem>
+              <SelectItem className="hover:bg-zinc-200" value="hired">
+                Hired
+              </SelectItem>
+              <SelectItem className="hover:bg-zinc-200" value="rejected">
+                Rejected
+              </SelectItem>
             </SelectContent>
           </Select>
         )}

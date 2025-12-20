@@ -58,8 +58,7 @@ const JobPage = () => {
   }
 
   return (
-    <div className="flex flex-col gap-10 mt-6">
-      {/* Header */}
+    <div className="bg-white flex flex-col gap-10 mt-6 p-4 sm:p-8 shadow-md">
       <div className="flex flex-col-reverse gap-6 md:flex-row md:items-center md:justify-between border-b pb-6">
         <h1 className="text-zinc-900 font-extrabold tracking-tight text-3xl sm:text-5xl">
           {job?.title}
@@ -68,11 +67,10 @@ const JobPage = () => {
         <img
           src={job?.company?.logo_url}
           alt={job?.title}
-          className="h-10 sm:h-12 object-contain "
+          className="h-10 sm:h-12 object-contain"
         />
       </div>
 
-      {/* Meta Info */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm sm:text-base text-zinc-700">
         <div className="flex items-center gap-2">
           <MapPinIcon className="h-4 w-4 text-zinc-500" />
@@ -85,7 +83,7 @@ const JobPage = () => {
         </div>
 
         <div className="flex items-center gap-2">
-          {job?.isopen || job?.isopen ? (
+          {job?.isopen ? (
             <>
               <DoorOpen className="h-4 w-4 text-emerald-600" />
               <span className="text-emerald-600 font-medium">Open</span>
@@ -99,21 +97,19 @@ const JobPage = () => {
         </div>
       </div>
 
-      {/* Recruiter Controls */}
+
       {job?.recruiter_id === user?.id && (
         <div className="max-w-sm">
           <Select onValueChange={handleStatusChange}>
             <SelectTrigger
-              className={`h-11 font-medium ${
-                job?.isopen || job?.isopen
-                  ? "bg-emerald-950 text-emerald-200 border-emerald-900"
-                  : "bg-red-950 text-red-200 border-red-900"
-              }`}
+              className={`h-11 font-medium ${job?.isopen
+                ? "bg-emerald-950 text-emerald-200 border-emerald-900"
+                : "bg-red-950 text-red-200 border-red-900"
+                }`}
             >
               <SelectValue
-                placeholder={`Hiring Status ${
-                  job?.isopen || job?.isopen ? "( Open )" : "( Closed )"
-                }`}
+                placeholder={`Hiring Status ${job?.isopen ? "( Open )" : "( Closed )"
+                  }`}
               />
             </SelectTrigger>
 
@@ -125,7 +121,7 @@ const JobPage = () => {
         </div>
       )}
 
-      {/* About */}
+
       <section className="space-y-3">
         <h2 className="text-xl sm:text-2xl font-bold text-zinc-900">
           About the job
@@ -135,7 +131,7 @@ const JobPage = () => {
         </p>
       </section>
 
-      {/* Requirements */}
+
       <section className="space-y-3">
         <h2 className="text-xl sm:text-2xl font-bold text-zinc-900">
           What we are looking for
@@ -152,7 +148,7 @@ const JobPage = () => {
             }}
           />
 
-          {/*Resume Applications */}
+
 
           {job && user && job?.recruiter_id !== user?.id && (
             <ApplyJobDrawer
@@ -167,7 +163,7 @@ const JobPage = () => {
         </div>
       </section>
 
-      {/* Loader */}
+
       {loadingHiringStatus && (
         <div className="pt-4">
           <BarLoader width="100%" color="#36d7b7" />
@@ -179,7 +175,11 @@ const JobPage = () => {
             Applications
           </h2>
           {job.applications.map((application) => (
-            <ApplicationCard key={application.id} application={application} />
+            <ApplicationCard
+              key={application.id}
+              application={application}
+              fetchJob={fnJob}
+            />
           ))}
         </div>
       )}
