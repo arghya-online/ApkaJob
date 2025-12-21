@@ -1,96 +1,83 @@
-# ApkaJob
+Hey folks..
 
-Built this while learning React and modern frontend stuff.
+Just shipped this little project called **ApkaJob** while grinding through React and all the modern frontend jazz.
 
-Didn’t want another todo app, so tried building something that feels a bit real —
-auth, roles, backend, UI, bugs… all of it.
+I was tired of building yet another todo app, so I went for something that actually feels like a real thing – auth, roles, backend calls, UI polish, and yeah... plenty of bugs to cry over at 2am 😂
 
-This is a **learning project**, not a startup.
-
----
-
-## What is this?
-
-A small hiring-style app with two roles:
-
-**Recruiter**
-
-- post jobs
-- open / close hiring
-- see applications
-- update application status
-
-**Candidate**
-
-- browse jobs
-- search and filter
-- apply with resume
-- track application status
-- save jobs
-
-Simple idea, but enough to run into real problems.
+This is 100% a **learning project**, not me quitting my college to start a startup lol.
 
 ---
 
-## Why I built it
+### What's this thing?
 
-Tutorials are nice, but they don’t show:
+Tiny hiring platform with two sides:
 
-- auth edge cases
-- permission issues
-- broken APIs
-- weird bugs at 2 AM
+**Recruiter vibes:**
+- Post jobs
+- Open/close hiring
+- Check out applications
+- Update statuses (accepted, rejected, etc.)
 
-So I built this to:
+**Candidate vibes:**
+- Browse open jobs
+- Search + filter like a boss
+- Apply with your resume
+- Track where your apps stand
+- Save jobs you like
 
-- break things
-- fix them
-- understand why they broke
-
-Learned way more this way.
-
----
-
-## Stuff I practiced
-
-- React component structure
-- role-based UI (same app, different views)
-- drawers, tables, responsive layouts
-- form handling
-- real API calls
-- Supabase RLS (painful but useful)
-- passing the right data types 
+Simple on paper, but it forced me to deal with all the messy real-world stuff.
 
 ---
 
-## Tech used
+### Why I built it
 
-Frontend:
+Tutorials are cool and all, but they skip the fun parts:
+- Auth edge cases that make you question life
+- "Wait why can't this user see that?" permission drama
+- APIs randomly breaking
+- Bugs that only appear at 2am
 
+So I built this to intentionally break stuff, fix it, and actually understand WHY it broke. Learned 10x more this way 🤌
+
+---
+
+### Stuff I got hands-on with
+
+- Solid React component structure
+- Role-based UI (same app, totally different views depending on who's logged in)
+- Drawers, tables, responsive layouts that don't suck on mobile
+- Proper form handling (validation, file uploads, etc.)
+- Real API calls that can fail
+- Supabase RLS (hurt my brain but worth it)
+- Not accidentally sending strings where numbers should be 😅
+
+---
+
+### Tech stack
+
+**Frontend:**
 - React
-- Vite
+- Vite (blazing fast)
 - React Router
-- Tailwind
-- Shadcn UI
+- Tailwind CSS
+- Shadcn UI components (they're clean af)
 
-Backend & auth:
-
-- Supabase (Postgres, RLS, storage)
-- Clerk (authentication)
+**Backend & Auth:**
+- Supabase (Postgres + RLS + storage)
+- Clerk for auth (way smoother than rolling my own)
 
 ---
 
-### 1. Create a .env file in the root directory and add the following:
+### How to run it locally
 
-VITE_CLERK_PUBLISHABLE_KEY=...
-VITE_SUPABASE_URL=...
-VITE_SUPABASE_ANON_KEY=...
+1. Drop a `.env` file in the root with these:
+   - VITE_CLERK_PUBLISHABLE_KEY=your_clerk_key 
+   - VITE_SUPABASE_URL=your_supabase_url 
+   - VITE_SUPABASE_ANON_KEY=your_anon_key
 
-### 2. Clone the Repository
-
+2. Then:
 ```bash
-git clone https://github.com/your-username/WorkFlo.git
+git clone [https://github.com/your-username/ApkaJob.git](https://github.com/your-username/ApkaJob.git)
 cd ApkaJob
 npm install
-npm run dev
-```
+npm run dev   
